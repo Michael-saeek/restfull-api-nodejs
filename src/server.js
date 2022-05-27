@@ -1,16 +1,19 @@
 const express = require("express")
 const app = express()
 const morgan = require("morgan")
-const port = process.env.$PORT || 3000
+const port = process.env.$PORT || 8080
 const cors = require('cors')
 const path = require('path')
 const { engine }= require('express-handlebars')
 const { router } = require('./routes/index.routes')
 
+//settings
 
-app.engine('handlebars', engine( { defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
-app.set('views', path.join(__dirname, 'views')); 
+app.engine('.hbs', engine({
+  extname: '.hbs'
+}))
+app.set('view engine', '.hbs')
+app.set('views',  path.join(__dirname, 'views'))
 
 //middlewars
 app.use(cors());
@@ -23,9 +26,9 @@ app.use('/', router)
 
 
 //vista publica
+app.use(express.static(path.join(__dirname, 'public')))
 
-
-//portas
-app.listen(port, ()=>{
+//ports
+app.listen(port, () => {
     console.log(`Escuchando port ${port}`)
 })

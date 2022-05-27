@@ -1,15 +1,22 @@
-const { Router } = require('express')
-const router = Router()
+const express = require('express')
+//const path = require('path')
+const router = express.Router()
 
-const dataBase = require('../db')
+//const dataBase = require('../db')
 
-//controllers here
-router.use('/', (req, res) => {
-    res.render('main')
+//middleware use
+router.use( function(req, res, next) {
+    next()
 })
 
-
 //GET
+
+router.get('/', (req, res) => {
+  
+    res.render('home', {layout: false})
+})
+
+/*
 router.get('/allArtists', (req, res) => {
 
     res.status(200).send(JSON.stringify(dataBase))
@@ -24,11 +31,13 @@ router.get('/artists:id', (req, res) => {
     res.send(req.body)
 })
 
+*/
+
 //PUT 
 
 
 //DELETE
 
-module.exports = {
+module.exports = { 
     router
-}
+};
