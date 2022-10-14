@@ -1,11 +1,16 @@
+require('dotenv').config()  
+/* con esta configuración podemos tener acesso a las variables de ambientes */ 
+
 const express = require("express")
 const app = express()
 const morgan = require("morgan")
-const port = process.env.$PORT || 8080
+const port = process.env.PORT || 8080
 const cors = require('cors')
 const path = require('path')
 const { engine }= require('express-handlebars')
-const { router } = require('./routes/index.routes')
+const apiRouter = require('./routes/api')
+const authRouter = require('./routes/auth')
+const { dbConnnection } = require('./database/config')
 
 //settings
 
@@ -21,14 +26,21 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 
-//rotas 
-app.use('/', router)
 
+
+//rotas 
+app.use('/api', require('./routes/api'))
+app.use('/auth', require('./routes/auth'))
 
 //vista publica
 app.use(express.static(path.join(__dirname, 'public')))
 
+
+//Conexion a la base de datos
+
+dbConnnection();
+
 //ports
 app.listen(port, () => {
-    console.log(`Escuchando port ${port}`)
+    console.log(`Server is running on ${port}`)
 })
