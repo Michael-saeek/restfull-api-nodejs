@@ -89,14 +89,16 @@ const usuariosPut = async (req, res) => {
 const deleteUser = async (req, res) => {
 
   const { id } = req.params
+
   // borrar fisicamente 
   // const usuarioDeleted = await Usuario.findByIdAndDelete(id)
 
   const usuarioDeleted = await Usuario.findByIdAndUpdate(id, { estado: false })
-
+  const userAuthenticated = req.usuario
+  
   res.status(202).json({
-    msg: "Usuario eliminado",
-    id,
+    usuarioAutenticado: userAuthenticated.nombre,
+    rol: userAuthenticated.rol,
     usuarioDeleted
   })
 }
