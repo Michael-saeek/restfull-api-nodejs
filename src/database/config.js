@@ -3,8 +3,6 @@ const URIaddress = process.env.MONGO_DB_ATLAS
 
 const dbConnnection = async () => {
 
-    console.log(typeof URIaddress, + " ", URIaddress)
-
     try {
         await mongoose.connect(URIaddress, {
             useNewUrlParser: true,

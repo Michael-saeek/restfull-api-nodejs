@@ -8,8 +8,6 @@ const port = process.env.PORT || 8080
 const cors = require('cors')
 const path = require('path')
 const { engine }= require('express-handlebars')
-const apiRouter = require('./routes/api')
-const authRouter = require('./routes/auth')
 const { dbConnnection } = require('./database/config')
 
 //settings
@@ -31,6 +29,7 @@ app.use(morgan("dev"));
 //rotas 
 app.use('/api', require('./routes/api'))
 app.use('/auth', require('./routes/auth'))
+app.use('/api/categories', require('./routes/categories'))
 
 //vista publica
 app.use(express.static(path.join(__dirname, 'public')))
