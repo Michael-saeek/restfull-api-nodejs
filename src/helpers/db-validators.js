@@ -1,5 +1,6 @@
 const Rol = require('../model/rols')
 const Usuario = require('../model/usuarios')
+const Categorie = require('../model/categories')
 
 const isRolValid = async (rol = '') => {
     const rolExist = await Rol.findOne({ rol: rol })
@@ -27,9 +28,19 @@ const userExists = async (id) => {
     }
 }
 
+const categoryExist = async ( id ) => {
+
+    const category = await Categorie.findOne({_id: id})
+
+    if (!category) {
+        throw new Error('El id de esta categoria no existe en nuestra base de datos')
+    }
+}
+
 
 module.exports = {
     isRolValid,
     emailExistsonDB,
-    userExists
+    userExists,
+    categoryExist
 }
